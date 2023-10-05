@@ -1,0 +1,13 @@
+.list-item{
+    display: flex;
+    justify-content: space-between;
+    cursor: move;
+}
+.list-button{
+    display: flex;
+    gap: 4px;
+}
+.list-shadow{
+    display: flex;
+    gap: 5px;
+}
