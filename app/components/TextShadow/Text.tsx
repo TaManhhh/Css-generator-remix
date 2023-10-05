@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import boxShadow from './boxShadow.css'
+import boxShadow from '../BoxShadow/boxShadow.css'
 import type { LinksFunction } from "@remix-run/node";
-import { Templates, initialBoxShadow } from '~/constants/box-shadow-values';
+import {  initialTextShadow } from '~/constants/box-shadow-values';
 import { AppProvider, Button, hsbToRgb, Page, Divider, Grid, LegacyCard, Checkbox, RangeSlider, ColorPicker } from '@shopify/polaris';
 import { BoxShadowI } from '~/types/index.type';
 import ListItem, { links as listItem } from '~/components/ListItem/ListItem';
 
-const Box = () => {
-  const [data, setData] = useState(initialBoxShadow);
+const Text = () => {
+  const [data, setData] = useState(initialTextShadow);
   console.log("🚀 ~ file: Box.tsx:11 ~ Box ~ data:", data)
   const [shadows, setShadows] = useState<any>([]);
   const [colorItem, setColorItem] = useState("#3d9df6");
@@ -16,17 +16,11 @@ const Box = () => {
   const [count, setCount] = useState(data.length);
   const [editData, setEditData] = useState<any>();
 
-  const handleTemplateChange = (e: any) => {
-    setData(e);
-    setEditData(e[0])
-  };
-
   const handleColorItemChange = (e: any) => {
     setColorItem(e.target.value);
   };
   const updateShadow = (prop: string, val: any) => {
     setFormData({ ...formData, [prop]: val });
-    console.log("🚀 ~ file: Box.tsx:29 ~ updateShadow ~ val:", val)
     if (editData) {
       const updatedData = data.map((item: any) => {
         if (item.id === editData.id) {
@@ -45,12 +39,10 @@ const Box = () => {
   useEffect(() => {
     const boxShadowString = data
       .map((item: any) => {
-        const { shiftRight, shiftDown, blur, spread, color, inset } = item;
+        const { shiftRight, shiftDown, blur, color } = item;
         const ToRgb = hsbToRgb(color)
         const colorWithOpacity = `rgba(${ToRgb.red}, ${ToRgb.green}, ${ToRgb.blue})`;
-        const insetString = inset
-          ? `inset ${shiftRight}px ${shiftDown}px ${blur}px ${spread}px `
-          : `${shiftRight}px ${shiftDown}px ${blur}px ${spread}px`;
+        const insetString =`${shiftRight}px ${shiftDown}px ${blur}px `;
         return ` ${insetString} ${colorWithOpacity} `;
       })
       .join(",");
@@ -63,10 +55,8 @@ const Box = () => {
         ...prevFormData,
         shiftRight: editData.shiftRight,
         shiftDown: editData.shiftDown,
-        spread: editData.spread,
         blur: editData.blur,
         color: editData.color,
-        inset: editData.inset,
         id: editData.id,
       }));
     } else {
@@ -121,16 +111,7 @@ const Box = () => {
                   max={50}
                   step={1}
                 />
-                <RangeSlider
-                  id='spread'
-                  label="Spread"
-                  value={formData.spread}
-                  onChange={(e) => updateShadow("spread", e)}
-                  output
-                  min={0}
-                  max={100}
-                  step={1}
-                />
+               
                 <RangeSlider
                   label="Blur"
                   id='blur'
@@ -141,12 +122,6 @@ const Box = () => {
                   max={100}
                   step={1}
                 />
-                <Checkbox
-                  label="Inset"
-                  id='inset'
-                  checked={formData.inset}
-                  onChange={(e) => updateShadow("inset", e)}
-                />
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
                   <ColorPicker onChange={(e) => updateShadow("color", e)} color={formData.color} />
                   <Divider />
@@ -155,7 +130,7 @@ const Box = () => {
                   </div>
                   <div className='list'>
                     {data.map((e: any, index: number) => (
-                      <ListItem index={index} type='box' formData={formData} data={data} setData={setData} shadow={e} key={index} editData={editData} setEditData={setEditData} />
+                      <ListItem index={index} type='text' formData={formData} data={data} setData={setData} shadow={e} key={index} editData={editData} setEditData={setEditData} />
                     ))}
 
                   </div>
@@ -180,25 +155,21 @@ const Box = () => {
 
                 </LegacyCard.Header>
                 <LegacyCard.Section>
-                  <div style={{ background: colorBg, padding: 36 }}>
-                    <div
-                      className="box-preview "
-                      style={{ boxShadow: shadows, background: colorItem }}></div>
+                  <div style={{ background: colorBg, padding: 50 }}>
+                    <div style={{fontSize:80}} >
+                      <p style={{ textShadow: shadows, color: colorItem }}>HeHe !!</p>
+                    </div>
                   </div>
                 </LegacyCard.Section>
               </LegacyCard>
               <LegacyCard title='Css code'>
                 <LegacyCard.Section>
-                  <p>box-shadow: {shadows}</p>
+                  <p>text-shadow: {shadows}</p>
                 </LegacyCard.Section>
               </LegacyCard>
               <LegacyCard title='Template'>
                 <LegacyCard.Section>
-                  <div className='list-template'>
-                    {Templates.map((e: any) => (
-                      <div className="template" key={e.id} onClick={() => handleTemplateChange(e.template)}></div>
-                    ))}
-                  </div>
+
                 </LegacyCard.Section>
               </LegacyCard>
             </Grid.Cell>
@@ -209,7 +180,8 @@ const Box = () => {
     </AppProvider>
   )
 }
-export default Box
+
+export default Text
 export const links: LinksFunction = () => {
   return [{ rel: 'stylesheet', href: boxShadow }, ...listItem()]
 }

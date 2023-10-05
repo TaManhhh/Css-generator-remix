@@ -8,8 +8,8 @@ const Header = () => {
             <div className='header-main'>
                 <Link to={'/box-shadow'}> Box shadow</Link>
                 <Link to={'/text-shadow'}> Text shadow</Link>
-                <Link to={'/box-shadow'}> Box shadow</Link>
-                <Link to={'/box-shadow'}> Box shadow</Link>
+                <Link to={'/box-shadow'}>Border</Link>
+                <Link to={'/box-shadow'}> Transform</Link>
             </div>
         </div>
     )

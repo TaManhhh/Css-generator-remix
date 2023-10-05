@@ -9,8 +9,9 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 import '@shopify/polaris/build/esm/styles.css';
+import Header ,{links as header}from "./components/header";
 export const links: LinksFunction = () => [
-  ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
+  ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref },...header()] : []),
 ];
 
 export default function App() {
@@ -23,6 +24,7 @@ export default function App() {
         <Links />
       </head>
       <body>
+        <Header/>
         <Outlet />
         <ScrollRestoration />
         <Scripts />

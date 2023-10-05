@@ -16,8 +16,23 @@
 .box-preview{
     width: 200px;
     height: 200px;
-    padding: 36px;
+    
 }
 .text-preview {
     padding: 36px;
+}
+.list{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.list-template{
+    display: flex;
+    width: 100%;
+    gap: 20px;
+}
+.template{
+    width: 50px;
+    height: 50px;
+    background-color:#79dff1 ;
 }

@@ -4,8 +4,8 @@ import Box,{links as box} from "~/components/BoxShadow/Box";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "New Remix App" },
-    { name: "description", content: "Welcome to Remix!" },
+    { title: "CSS Generator | Section Cloud" },
+    { name: "CSS Generator | Section Cloud", content: "CSS Generator | Section Cloud" },
   ];
 };
 
